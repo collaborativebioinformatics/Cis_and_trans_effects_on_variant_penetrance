@@ -2,5 +2,4 @@
 # Cis_and_trans_effects_on_variant_penetrance
 
 
-
-Adding a flow chart
+![Flowchart][Flowchart.png]
