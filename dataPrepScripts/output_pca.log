@@ -1,0 +1,27 @@
+PLINK v2.00a3 SSE4.2 (18 Feb 2022)
+Options in effect:
+  --bfile output_qc
+  --extract output_pruned.prune.in
+  --out output_pca
+  --pca 10
+
+Hostname: heavy
+Working directory: /home/mchikina/Dropbox/WorkShare/pleco/Cis_and_trans_effects_on_variant_penetrance/dataPrepScripts
+Start time: Tue Mar  4 14:27:23 2025
+
+Random number seed: 1741116443
+64026 MiB RAM detected; reserving 32013 MiB for main workspace.
+Using up to 16 threads (change this with --threads).
+2548 samples (0 females, 0 males, 2548 ambiguous; 2548 founders) loaded from
+output_qc.fam.
+14 variants loaded from output_qc.bim.
+Note: No phenotype data present.
+--extract: 4 variants remaining.
+Calculating allele frequencies... done.
+4 variants remaining after main filters.
+Constructing GRM: done.
+Extracting eigenvalues and eigenvectors... done.
+--pca: Eigenvectors written to output_pca.eigenvec , and eigenvalues written to
+output_pca.eigenval .
+
+End time: Tue Mar  4 14:27:26 2025

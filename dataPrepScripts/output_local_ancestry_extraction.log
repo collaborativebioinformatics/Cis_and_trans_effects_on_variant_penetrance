@@ -1,0 +1,128 @@
+Starting Local Ancestry PC Extraction Pipeline
+Input VCF: ../testVCFs/
+Region: 6:29944513-29945558
+Output Prefix: output
+Date: Tue Mar  4 02:27:03 PM EST 2025
+Extracting region-specific variants...
+[E::hts_hopen] Failed to open file ../testVCFs/
+[E::hts_open_format] Failed to open file "../testVCFs/" : Is a directory
+Failed to read from ../testVCFs/: Is a directory
+index: failed to open output_region.vcf.gz
+Converting VCF to PLINK binary format...
+PLINK v2.00a3 SSE4.2 (18 Feb 2022)             www.cog-genomics.org/plink/2.0/
+(C) 2005-2022 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to output_qc.log.
+Options in effect:
+  --geno 0.1
+  --hwe 1e-6
+  --maf 0.05
+  --make-bed
+  --max-alleles 2
+  --out output_qc
+  --set-all-var-ids @_#_$r_$a
+  --vcf output_region.vcf.gz
+
+Start time: Tue Mar  4 14:27:03 2025
+64026 MiB RAM detected; reserving 32013 MiB for main workspace.
+Using up to 16 threads (change this with --threads).
+Error: Failed to open output_region.vcf.gz : No such file or directory.
+End time: Tue Mar  4 14:27:03 2025
+Error: PLINK binary file conversion failed
+Starting Local Ancestry PC Extraction Pipeline
+Input VCF: ../testVCFs/hlaa.vcf.gz
+Region: 6:29944513-29945558
+Output Prefix: output
+Date: Tue Mar  4 02:27:23 PM EST 2025
+Extracting region-specific variants...
+Converting VCF to PLINK binary format...
+PLINK v2.00a3 SSE4.2 (18 Feb 2022)             www.cog-genomics.org/plink/2.0/
+(C) 2005-2022 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to output_qc.log.
+Options in effect:
+  --geno 0.1
+  --hwe 1e-6
+  --maf 0.05
+  --make-bed
+  --max-alleles 2
+  --out output_qc
+  --set-all-var-ids @_#_$r_$a
+  --vcf output_region.vcf.gz
+
+Start time: Tue Mar  4 14:27:23 2025
+64026 MiB RAM detected; reserving 32013 MiB for main workspace.
+Using up to 16 threads (change this with --threads).
+--vcf: 84 variants scanned.
+--vcf: 0k variants converted.    --vcf: output_qc-temporary.pgen + output_qc-temporary.pvar.zst +
+output_qc-temporary.psam written.
+2548 samples (0 females, 0 males, 2548 ambiguous; 2548 founders) loaded from
+output_qc-temporary.psam.
+84 variants loaded from output_qc-temporary.pvar.zst.
+Note: No phenotype data present.
+Calculating allele frequencies... 0%0%done.
+--geno: 0 variants removed due to missing genotype data.
+--hwe: 50 variants removed due to Hardy-Weinberg exact test (founders only).
+20 variants removed due to allele frequency threshold(s)
+(--maf/--max-maf/--mac/--max-mac).
+14 variants remaining after main filters.
+Writing output_qc.fam ... done.
+Writing output_qc.bim ... done.
+Writing output_qc.bed ... 0%done.
+End time: Tue Mar  4 14:27:23 2025
+Pruning variants for PCA...
+PLINK v2.00a3 SSE4.2 (18 Feb 2022)             www.cog-genomics.org/plink/2.0/
+(C) 2005-2022 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to output_pruned.log.
+Options in effect:
+  --bfile output_qc
+  --indep-pairwise 50 5 0.2
+  --out output_pruned
+
+Start time: Tue Mar  4 14:27:23 2025
+64026 MiB RAM detected; reserving 32013 MiB for main workspace.
+Using up to 16 threads (change this with --threads).
+2548 samples (0 females, 0 males, 2548 ambiguous; 2548 founders) loaded from
+output_qc.fam.
+14 variants loaded from output_qc.bim.
+Note: No phenotype data present.
+Calculating allele frequencies... 0%0%done.
+--indep-pairwise (1 compute thread): 0%50%10/14 variants removed.
+Writing...Variant lists written to output_pruned.prune.in and output_pruned.prune.out .
+End time: Tue Mar  4 14:27:23 2025
+Calculating Principal Components...
+PLINK v2.00a3 SSE4.2 (18 Feb 2022)             www.cog-genomics.org/plink/2.0/
+(C) 2005-2022 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to output_pca.log.
+Options in effect:
+  --bfile output_qc
+  --extract output_pruned.prune.in
+  --out output_pca
+  --pca 10
+
+Start time: Tue Mar  4 14:27:23 2025
+64026 MiB RAM detected; reserving 32013 MiB for main workspace.
+Using up to 16 threads (change this with --threads).
+2548 samples (0 females, 0 males, 2548 ambiguous; 2548 founders) loaded from
+output_qc.fam.
+14 variants loaded from output_qc.bim.
+Note: No phenotype data present.
+--extract: 4 variants remaining.
+Calculating allele frequencies... 0%0%done.
+4 variants remaining after main filters.
+Constructing GRM: 0%done.
+Extracting eigenvalues and eigenvectors... done.
+--pca: Eigenvectors written to output_pca.eigenvec , and eigenvalues written to
+output_pca.eigenval .
+End time: Tue Mar  4 14:27:26 2025
+Processing PCA results...
+<stdin>:22: FutureWarning: The 'delim_whitespace' keyword in pd.read_csv is deprecated and will be removed in a future version. Use ``sep='\s+'`` instead
+Number of PCs selected: 4
+
+Variance Explained:
+PC1: 40.65% (Cumulative: 40.65%)
+PC2: 28.68% (Cumulative: 69.33%)
+PC3: 18.26% (Cumulative: 87.59%)
+PC4: 12.41% (Cumulative: 100.00%)
+Cleaning up intermediate files...
+Local Ancestry PC Extraction Complete!
+Results in: output_local_ancestry_pcs.csv
+Variance explained in: output_variance_explained.csv
