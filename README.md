@@ -18,11 +18,11 @@ The key innovation is using local ancestry Principal Components as the "environm
 
 The adapted model is structured as:
 
-$$\mathbf{y} = \mathbf{M}\boldsymbol{\alpha} + g\boldsymbol{\beta} + g\circ\boldsymbol{\beta} + \mathbf{e} + \boldsymbol{\varepsilon},$$
+$$\mathbf{y} = \mathbf{M}\boldsymbol{\alpha} + g\boldsymbol{\beta_0} + g\circ\boldsymbol{\beta_1} + \mathbf{e} + \boldsymbol{\varepsilon},$$
 
 where:
 
-$$\boldsymbol{\beta} \sim \mathcal{N}(\mathbf{0}, r_0 \cdot \rho\mathbf{I}), \quad \boldsymbol{\beta} \sim \mathcal{N}(\mathbf{0}, r_0(1-\rho)\mathbf{EE}^\top), \quad \mathbf{e} \sim \mathcal{N}(\mathbf{0}, r_1\mathbf{EE}^\top), \quad \text{and} \quad \boldsymbol{\varepsilon} \sim \mathcal{N}(\mathbf{0}, r_2\mathbf{I}).$$
+$$\boldsymbol{\beta_0} \sim \mathcal{N}(\mathbf{0}, r_0 \cdot \rho\mathbf{I}), \quad \boldsymbol{\beta_1} \sim \mathcal{N}(\mathbf{0}, r_0(1-\rho)\mathbf{EE}^\top), \quad \mathbf{e} \sim \mathcal{N}(\mathbf{0}, r_1\mathbf{EE}^\top), \quad \text{and} \quad \boldsymbol{\varepsilon} \sim \mathcal{N}(\mathbf{0}, r_2\mathbf{I}).$$
 
 - **y** is the phenotype vector
 - **M** contains covariates
