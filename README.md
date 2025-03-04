@@ -2,4 +2,7 @@
 # Cis_and_trans_effects_on_variant_penetrance
 
 
-![Flowchart](Flowchart.png)
+![Flowchart](Figures/Flowchart.png)
+![Method1](Figures/Method1.png)
+![Method2](Figures/Method2.png)
+![Method3](Figures/Method3.png)
