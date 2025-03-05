@@ -39,7 +39,7 @@ We are assuming that the genotypes are in PLINK format split by chromosome and r
 We extract Principal Components from a specified genomic region to capture local ancestry patterns:
 
 ```bash
-./getPCfromPlinkDirectory.sh ../testPlink/  chr6:29944513-29945558 PCoutput
+./dataPrepScripts/getPCfromPlinkDirectory.sh testPlink/  chr6:29944513-29945558 output/PCoutput
 ```
 
 The script:
@@ -51,7 +51,7 @@ The script:
 Optionally, you can extract the single variant of interest:
 
 ```bash
-./getSingleVariantFromPlinkDirectory.sh ../testPlink/ chr6:32529369:C:A SNVoutput.txt
+./dataPrepScripts/getSingleVariantFromPlinkDirectory.sh testPlink/ chr6:32529369:C:A output/SNVoutput.txt
 ```
 
 The query variant can be from any source and can even be an aggregate score over multiple variants.
