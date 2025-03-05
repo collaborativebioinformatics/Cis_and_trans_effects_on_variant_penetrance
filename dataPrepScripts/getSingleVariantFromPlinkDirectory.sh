@@ -82,19 +82,40 @@ else
         # Find the chromosome file to check if this specific allele combination exists
         PATTERNS=("$CHROM" "${CHROM#chr}" "chr${CHROM#chr}")
         FOUND_BIM=""
-        
-        for pattern in "${PATTERNS[@]}"; do
-            if ls $PLINK_DIR/$pattern.bim 2>/dev/null; then
-                FOUND_BIM="$PLINK_DIR/$pattern.bim"
-                break
-            fi
-            
-            TEMP=$(find $PLINK_DIR -name "*.bim" | grep -i "$pattern" | head -1)
-            if [ -n "$TEMP" ]; then
-                FOUND_BIM="$TEMP"
-                break
-            fi
-        done
+
+	for pattern in "${PATTERNS[@]}"; do
+	    # Try direct pattern matching first
+	    if ls "$PLINK_DIR/$pattern.bim" 2>/dev/null; then
+		FOUND_BIM="$PLINK_DIR/$pattern.bim"
+		break
+	    fi
+	    
+	    # Find all matching files and use regex for precise matching
+	    FOUND_FILES=$(find "$PLINK_DIR" -name "*.bim" | grep -E "(^|[^0-9a-zA-Z])${pattern}([^0-9a-zA-Z]|$)")
+	    
+	    # Count the number of matching files
+	    FOUND_COUNT=$(echo "$FOUND_FILES" | grep -v "^$" | wc -l)
+	    
+	    if [ "$FOUND_COUNT" -eq 1 ]; then
+		# Exactly one match found
+		FOUND_BIM="$FOUND_FILES"
+		echo "Found a single BIM file $FOUND_BIM"
+		break
+	    elif [ "$FOUND_COUNT" -gt 1 ]; then
+		# Multiple matches found - show error and exit
+		echo "Error: Found multiple matching files for chromosome pattern $pattern:"
+		echo "$FOUND_FILES"
+		exit 1
+	    fi
+	done
+	
+# Check if a BIM file was found, if not show error and list available files
+if [ -z "$FOUND_BIM" ]; then
+    echo "Error: Could not find BIM file for chromosome $CHROM in directory $PLINK_DIR"
+    echo "Available .bim files in directory:"
+    find "$PLINK_DIR" -name "*.bim" | sort
+    exit 1
+fi
         
         if [ -n "$FOUND_BIM" ]; then
             # Check if the exact allele combination exists
