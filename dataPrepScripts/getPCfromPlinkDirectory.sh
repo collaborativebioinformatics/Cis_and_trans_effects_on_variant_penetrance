@@ -35,24 +35,47 @@ echo "Parsed region - Chromosome: $CHROM, Start: $START, End: $END"
 
 # Find the appropriate chromosome file in the directory
 # Try common naming patterns
+
 PLINK_PREFIX=""
 PATTERNS=("$CHROM" "${CHROM#chr}" "chr${CHROM#chr}")
-
 for pattern in "${PATTERNS[@]}"; do
-
-    FOUND=$(find $PLINK_DIR -name "*.bed" | grep -E "(^|[^0-9a-zA-Z])${pattern}([^0-9a-zA-Z]|$)" | head -1)
-    if [ -n "$FOUND" ]; then
-        PLINK_PREFIX="${FOUND%.bed}"
-        echo "Found PLINK files with precise matching, prefix: $PLINK_PREFIX"
+    # Find all matching files and save to a variable
+    FOUND_FILES=$(find $PLINK_DIR -name "*.bed" | grep -E "(^|[^0-9a-zA-Z])${pattern}([^0-9a-zA-Z]|$)")
+    
+    # Count the number of matching files
+    FOUND_COUNT=$(echo "$FOUND_FILES" | grep -v "^$" | wc -l)
+    
+    if [ "$FOUND_COUNT" -eq 1 ]; then
+        # Exactly one match found
+        PLINK_PREFIX="${FOUND_FILES%.bed}"
+	echo "*****"
+	echo "*****"
+        echo "Found PLINK file  prefix: $PLINK_PREFIX"
+	echo "*****"
+	echo "*****"
         break
+    elif [ "$FOUND_COUNT" -gt 1 ]; then
+        # Multiple matches found - show error and exit
+        echo "Error: Found multiple matching files for chromosome pattern $pattern:"
+        echo "$FOUND_FILES"
+       
+        exit 1
     fi
-
 done
 
 if [ -z "$PLINK_PREFIX" ]; then
     echo "Error: Could not find PLINK files for chromosome $CHROM in directory $PLINK_DIR"
     exit 1
 fi
+
+
+
+
+
+
+
+
+
 
 # 1. Extract specific region using PLINK
 echo "Extracting region-specific variants..."
