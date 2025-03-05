@@ -1,1 +1,6 @@
 example
+testPlink/*.bed
+testPlink/*.bim
+testPlink/*.fam
+testPlink/*.sample
+testPlink/*.pheno*
