@@ -39,20 +39,14 @@ PLINK_PREFIX=""
 PATTERNS=("$CHROM" "${CHROM#chr}" "chr${CHROM#chr}")
 
 for pattern in "${PATTERNS[@]}"; do
-    # Look for exact matches first
-    if ls $PLINK_DIR/$pattern.bed 2>/dev/null; then
-        PLINK_PREFIX="$PLINK_DIR/$pattern"
-        echo "Found PLINK files with prefix: $PLINK_PREFIX"
-        break
-    fi
-    
-    # Then look for files containing the pattern
-    FOUND=$(find $PLINK_DIR -name "*.bed" | grep -i "$pattern" | head -1)
+
+    FOUND=$(find $PLINK_DIR -name "*.bed" | grep -E "(^|[^0-9a-zA-Z])${pattern}([^0-9a-zA-Z]|$)" | head -1)
     if [ -n "$FOUND" ]; then
         PLINK_PREFIX="${FOUND%.bed}"
-        echo "Found PLINK files with prefix: $PLINK_PREFIX"
+        echo "Found PLINK files with precise matching, prefix: $PLINK_PREFIX"
         break
     fi
+
 done
 
 if [ -z "$PLINK_PREFIX" ]; then
