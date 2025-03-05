@@ -87,7 +87,6 @@ conda install -c conda-forge -c bioconda liknorm-py=1.2.6 glimix-core chi2comb -
 
 # Install StructLMM
 pip install struct-lmm
-
 ```
 
 ## Usage
