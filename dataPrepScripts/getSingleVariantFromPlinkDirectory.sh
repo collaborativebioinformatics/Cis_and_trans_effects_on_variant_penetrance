@@ -116,6 +116,11 @@ if [ -z "$FOUND_BIM" ]; then
     find "$PLINK_DIR" -name "*.bim" | sort
     exit 1
 fi
+
+# Set PLINK_PREFIX based on the found BIM file
+PLINK_PREFIX="${FOUND_BIM%.bim}"
+echo "Using PLINK prefix: $PLINK_PREFIX"
+
         
         if [ -n "$FOUND_BIM" ]; then
             # Check if the exact allele combination exists
@@ -205,76 +210,7 @@ fi
     echo "Using chromosome $CHROM and position $POS"
 fi
 
-# Find the appropriate chromosome file in the directory - IMPROVED MATCHING
-PLINK_PREFIX=""
-PATTERNS=("$CHROM" "${CHROM#chr}" "chr${CHROM#chr}")
 
-# Get all .bed files in directory
-BED_FILES=$(find "$PLINK_DIR" -name "*.bed")
-
-# First, look for exact file matches
-for pattern in "${PATTERNS[@]}"; do
-    if [ -f "$PLINK_DIR/$pattern.bed" ]; then
-        PLINK_PREFIX="$PLINK_DIR/$pattern"
-        echo "Found exact PLINK files with prefix: $PLINK_PREFIX"
-        break
-    fi
-done
-
-# If no exact match, search for files that end with the target chromosome
-if [ -z "$PLINK_PREFIX" ]; then
-    echo "Looking for files containing chromosome pattern..."
-    
-    # For each pattern, try to find files that end with the pattern
-    for pattern in "${PATTERNS[@]}"; do
-        # Look specifically for files that end with the chromosome pattern
-        # but avoid matching chr10 when looking for chr1
-        for bed_file in $BED_FILES; do
-            # Get basename without extension
-            base_name=$(basename "$bed_file" .bed)
-            
-            # Check if filename ends with exact chromosome (e.g., ends with "chr1" not within "chr10")
-            if [[ "$base_name" == *"_${pattern}" || "$base_name" == *"_${pattern#chr}" ]]; then
-                PLINK_PREFIX="${bed_file%.bed}"
-                echo "Found prefix-ending match: $PLINK_PREFIX"
-                break 2
-            elif [[ "$base_name" == *"${pattern}" && "$base_name" != *"${pattern}0"* && "$base_name" != *"${pattern}1"* && "$base_name" != *"${pattern}2"* ]]; then
-                # Match "something_chr1" or "something_chr1_something" but not "something_chr10"
-                PLINK_PREFIX="${bed_file%.bed}"
-                echo "Found chromosome-specific match: $PLINK_PREFIX"
-                break 2
-            fi
-        done
-    done
-fi
-
-# As a last resort, look for any file containing the pattern
-if [ -z "$PLINK_PREFIX" ]; then
-    for bed_file in $BED_FILES; do
-        base_name=$(basename "$bed_file")
-        # For each chromosome pattern
-        for pattern in "${PATTERNS[@]}"; do
-            # Find files containing the exact chromosome string
-            if [[ "$base_name" == *"${pattern}"* ]]; then
-                # Exclude matches to chr10, chr11 etc when looking for chr1
-                # by checking that the next character isn't a digit
-                next_char="${base_name:${#pattern}:1}"
-                if [[ ! "$next_char" =~ [0-9] ]]; then
-                    PLINK_PREFIX="${bed_file%.bed}"
-                    echo "Found pattern match: $PLINK_PREFIX (matched $pattern)"
-                    break 2
-                fi
-            fi
-        done
-    done
-fi
-
-if [ -z "$PLINK_PREFIX" ]; then
-    echo "Error: Could not find PLINK files for chromosome $CHROM in directory $PLINK_DIR"
-    echo "Available .bed files in directory:"
-    find "$PLINK_DIR" -name "*.bed" | sort
-    exit 1
-fi
 
 # Create temporary directory
 TEMP_DIR=$(mktemp -d)
