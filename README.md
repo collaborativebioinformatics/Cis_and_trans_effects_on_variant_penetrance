@@ -72,6 +72,24 @@ We then apply the StructLMM framework using:
   - scipy
   - [StructLMM](https://github.com/limix/struct-lmm)
 
+**Setting up StructLMM Environment via Conda**
+
+To install StructLMM and all required dependencies in a clean environment, follow these steps:
+```
+# Create a conda environment
+conda create --name structlmm_env
+
+# Activate the environment
+conda activate structlmm_env
+
+# Install necessary packages
+conda install -c conda-forge -c bioconda liknorm-py=1.2.6 glimix-core chi2comb -y
+
+# Install StructLMM
+pip install struct-lmm
+
+```
+
 ## Usage
 
 
