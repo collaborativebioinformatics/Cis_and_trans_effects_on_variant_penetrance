@@ -3,6 +3,7 @@
 ## Overview
 
 This repository contains a methodology that adapts the StructLMM framework to study Gene-Gene (GxG) interactions instead of Gene-Environment (GxE) interactions. Our approach leverages local ancestry Principal Components (PCs) as a proxy for the "environment" in the StructLMM model.
+[Slides](https://docs.google.com/presentation/d/1zT2fxJY2oy-nK7_2xsCf-tiBQFoctBSzUGp55G6KglY/edit?usp=sharing)
 
 ## Methodology
 
