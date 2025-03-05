@@ -32,7 +32,7 @@ $$\boldsymbol{\beta_0} \sim \mathcal{N}(\mathbf{0}, r_0 \cdot \rho\mathbf{I}), \
 
 ## Pipeline
 
-We are assuming that the genotypes are in PLINK format split by chromosome and reside in a directory here called "testPlink"
+We are assuming that the genotypes are in PLINK format split by chromosome and reside in a directory here called "testPlink", click to [download](https://www.ebi.ac.uk/biostudies/studies/S-BSST936), and make sure it's in the testPlink folder
 
 ### Step 1: Extract Local Ancestry PCs
 
@@ -73,6 +73,7 @@ We then apply the StructLMM framework using:
   - [StructLMM](https://github.com/limix/struct-lmm)
 
 ## Usage
+
 
 ### Step 1: Extract local ancestry PCs
 ```bash
