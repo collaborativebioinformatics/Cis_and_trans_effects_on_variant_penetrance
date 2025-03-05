@@ -32,31 +32,38 @@ $$\boldsymbol{\beta_0} \sim \mathcal{N}(\mathbf{0}, r_0 \cdot \rho\mathbf{I}), \
 
 ## Pipeline
 
+We are assuming that the genotypes are in PLINK format split by chromosome and reside in a directory here called "testPlink"
+
 ### Step 1: Extract Local Ancestry PCs
 
 We extract Principal Components from a specified genomic region to capture local ancestry patterns:
 
 ```bash
-./local_ancestry_pc_extraction.sh input.vcf.gz chr1:1000000-2000000 output_prefix
+./getPCfromPlinkDirectory.sh ../testPlink/  chr6:29944513-29945558 PCoutput
 ```
-
 The script:
 1. Extracts variants from the region of interest
 2. Performs quality control
 3. Calculates PCs that explain up to 90% of variance
 4. Outputs PC coordinates and variance explained
 
+(Optionally) Extract the single variant of interest
+```bash
+./getSingleVariantFromPlinkDirectory.sh ../testPlink/ chr6:32529369:C:A SNVoutput.txt
+```
+The query variant can be from any source and can even be an aggregate score over multiple variants.
+
+
 ### Step 2: Run StructLMM with Local Ancestry PCs
 
 We then apply the StructLMM framework using:
 - The query SNV as the genetic variant
 - Local ancestry PCs as the "environment"
-- The phenotype of interest
+- The phenotype of qinterest
 
 ## Requirements
 
 - PLINK 2.0
-- BCFtools
 - Python 3.6+
   - numpy
   - pandas
@@ -67,14 +74,17 @@ We then apply the StructLMM framework using:
 
 ```bash
 # Step 1: Extract local ancestry PCs
-./local_ancestry_pc_extraction.sh input.vcf.gz chr1:1000000-2000000 output_prefix
+./dataPrep/Scripts/getPCfromPlinkDirectory.sh testPlink/  chr6:29944513-29945558 output/PCoutput
+./dataPrep/Scripts/getSingleVariantFromPlinkDirectory.sh testPlink/ chr6:32529369:C:A output/SNVoutput.txt
+```
 
 # Step 2: Run GxG analysis
-python run_gxg_analysis.py \
-  --pcs output_prefix_local_ancestry_pcs.csv \
-  --query-snv chr6_32609603_A_G_b38 or 6_32609603_A_G_b38 \
-  --phenotype phenotype.csv \
-  --covariates covariates.csv \
+```bash
+python gxg-structlmm-script.py \
+--pcs output/PCoutput_local_ancestry_pcs.csv \
+--sn output/SNVoutput.txt  \
+--phenotype testPlink/synthetic_small_v1.pheno1 \
+--phenotype-column "Phenotype(binary)" 
   --output results.csv
 ```
 
