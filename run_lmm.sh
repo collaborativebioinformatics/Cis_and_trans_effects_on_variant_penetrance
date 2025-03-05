@@ -8,9 +8,18 @@ SNV_P=$4
 
 # Run Python script with provided arguments
 python3 << EOF
+import sys
+import os
+import re
+import argparse
 import pandas as pd
-import numpy as np
-from some_module import StructLMM  # Replace with actual import if needed
+import numpy as np  
+import gzip
+import pysam
+import io
+from struct_lmm import StructLMM
+
+
 
 # Assign variables
 HAP_P = "$HAP_P"
