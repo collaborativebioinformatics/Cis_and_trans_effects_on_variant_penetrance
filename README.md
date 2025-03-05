@@ -41,25 +41,27 @@ We extract Principal Components from a specified genomic region to capture local
 ```bash
 ./getPCfromPlinkDirectory.sh ../testPlink/  chr6:29944513-29945558 PCoutput
 ```
+
 The script:
 1. Extracts variants from the region of interest
 2. Performs quality control
 3. Calculates PCs that explain up to 90% of variance
 4. Outputs PC coordinates and variance explained
 
-(Optionally) Extract the single variant of interest
+Optionally, you can extract the single variant of interest:
+
 ```bash
 ./getSingleVariantFromPlinkDirectory.sh ../testPlink/ chr6:32529369:C:A SNVoutput.txt
 ```
-The query variant can be from any source and can even be an aggregate score over multiple variants.
 
+The query variant can be from any source and can even be an aggregate score over multiple variants.
 
 ### Step 2: Run StructLMM with Local Ancestry PCs
 
 We then apply the StructLMM framework using:
 - The query SNV as the genetic variant
 - Local ancestry PCs as the "environment"
-- The phenotype of qinterest
+- The phenotype of interest
 
 ## Requirements
 
@@ -72,19 +74,22 @@ We then apply the StructLMM framework using:
 
 ## Usage
 
+### Step 1: Extract local ancestry PCs
 ```bash
-# Step 1: Extract local ancestry PCs
+# Extract PCs from region of interest
 ./dataPrep/Scripts/getPCfromPlinkDirectory.sh testPlink/  chr6:29944513-29945558 output/PCoutput
+
+# Optional: Extract the variant of interest
 ./dataPrep/Scripts/getSingleVariantFromPlinkDirectory.sh testPlink/ chr6:32529369:C:A output/SNVoutput.txt
 ```
 
-# Step 2: Run GxG analysis
+### Step 2: Run GxG analysis
 ```bash
 python gxg-structlmm-script.py \
---pcs output/PCoutput_local_ancestry_pcs.csv \
---sn output/SNVoutput.txt  \
---phenotype testPlink/synthetic_small_v1.pheno1 \
---phenotype-column "Phenotype(binary)" 
+  --pcs output/PCoutput_local_ancestry_pcs.csv \
+  --snv output/SNVoutput.txt  \
+  --phenotype testPlink/synthetic_small_v1.pheno1 \
+  --phenotype-column "Phenotype(binary)" \
   --output results.csv
 ```
 
@@ -98,5 +103,3 @@ If you use this method in your research, please cite:
 
 Original StructLMM paper:
 > Moore, R., Casale, F. P., Bonder, M. J., Horta, D., Franke, L., Barroso, I., & Stegle, O. (2018). A linear mixed-model approach to study multivariate gene–environment interactions. Nature Genetics, 50(7), 1167-1174.
-
-
