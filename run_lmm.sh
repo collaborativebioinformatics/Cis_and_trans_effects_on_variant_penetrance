@@ -41,5 +41,6 @@ g = SNV.iloc[:, 1].to_numpy()
 # Run analysis
 lmm = StructLMM(y, M, E)
 lmm.fit()
-lmm.score_2dof_inter(g)
+score = lmm.score_2dof_inter(g)
+print(score)
 EOF
