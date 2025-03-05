@@ -75,7 +75,7 @@ We then apply the StructLMM framework using:
 **Setting up StructLMM Environment via Conda**
 
 To install StructLMM and all required dependencies in a clean environment, follow these steps:
-```
+```bash
 # Create a conda environment
 conda create --name structlmm_env
 
