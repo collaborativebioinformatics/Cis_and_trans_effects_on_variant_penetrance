@@ -77,10 +77,10 @@ We then apply the StructLMM framework using:
 ### Step 1: Extract local ancestry PCs
 ```bash
 # Extract PCs from region of interest
-./dataPrep/Scripts/getPCfromPlinkDirectory.sh testPlink/  chr6:29944513-29945558 output/PCoutput
+./dataPrepScripts/getPCfromPlinkDirectory.sh testPlink/  chr6:29944513-29945558 output/PCoutput
 
 # Optional: Extract the variant of interest
-./dataPrep/Scripts/getSingleVariantFromPlinkDirectory.sh testPlink/ chr6:32529369:C:A output/SNVoutput.txt
+./dataPrepScripts/getSingleVariantFromPlinkDirectory.sh testPlink/ chr6:32529369:C:A output/SNVoutput.txt
 ```
 
 ### Step 2: Run GxG analysis
