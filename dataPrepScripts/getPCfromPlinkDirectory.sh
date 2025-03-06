@@ -123,7 +123,7 @@ echo "Calculating Principal Components..."
 plink2 \
     --bfile "${OUTPUT_PREFIX}_qc" \
     --extract "${OUTPUT_PREFIX}_pruned.prune.in" \
-    --pca 10 \
+    --pca 10 approx\
     --out "${OUTPUT_PREFIX}_pca"
 
 # 5. Process PCA results with dynamic PC selection
