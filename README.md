@@ -33,7 +33,7 @@ $$\boldsymbol{\beta_0} \sim \mathcal{N}(\mathbf{0}, r_0 \cdot \rho\mathbf{I}), \
 
 ## Pipeline
 
-We are assuming that the genotypes are in PLINK format split by chromosome and reside in a directory here called "testPlink", [click to download](https://www.ebi.ac.uk/biostudies/studies/S-BSST936) all files, and make sure it's in the testPlink folder
+We are assuming that the genotypes are in PLINK format split by chromosome and reside in a directory here called "testPlink", [click to download](https://www.ebi.ac.uk/biostudies/studies/S-BSST936) the example files (97 files in total), and make sure it's in the testPlink folder
 
 ### Step 1: Extract Local Ancestry PCs
 
@@ -49,7 +49,7 @@ The script:
 3. Calculates PCs that explain up to 90% of variance
 4. Outputs PC coordinates and variance explained
 
-Optionally, you can extract the single variant of interest:
+Extract the single variant of interest:
 
 ```bash
 ./dataPrepScripts/getSingleVariantFromPlinkDirectory.sh testPlink/ chr6:32529369:C:A output/SNVoutput.txt
@@ -98,7 +98,7 @@ pip install struct-lmm
 # Extract PCs from region of interest
 ./dataPrepScripts/getPCfromPlinkDirectory.sh testPlink/  chr6:29944513-29945558 output/PCoutput
 
-# Optional: Extract the variant of interest
+# Extract the variant of interest
 ./dataPrepScripts/getSingleVariantFromPlinkDirectory.sh testPlink/ chr6:32529369:C:A output/SNVoutput.txt
 ```
 
